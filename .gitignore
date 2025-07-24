@@ -1,0 +1,7 @@
+# python
+/__pycache__
+
+*.log
+
+/results_18emo_output
+.env
