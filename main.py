@@ -18,10 +18,10 @@ def main():
     if mode == "1":
         print("=== 19类情绪分类模型训练 ===")
         # 1. 加载数据
-        # train_texts, test_texts, train_labels, test_labels, label_encoder = load_data()
+        train_texts, test_texts, train_labels, test_labels, label_encoder = load_data()
 
         # 2. 训练和评估模型
-        # train_and_evaluate(train_texts, test_texts, train_labels, test_labels, label_encoder)
+        train_and_evaluate(train_texts, test_texts, train_labels, test_labels, label_encoder)
 
     elif mode == "2":
         print("=== 导出ONNX模型 ===")
