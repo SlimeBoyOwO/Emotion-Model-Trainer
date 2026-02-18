@@ -1,11 +1,76 @@
-# 情感分类器训练器
-> 一个简单的用来训练情感语句分类模型的python程序
+# 18类情绪分类模型训练项目
 
-## 如何使用？
-1. 在csv模型里输入情感语句和对应的情感标签
-2. 使用csvCleaner.py处理csv文件防止字符污染
-3. 运行startTrain.py等待训练完毕，完成后自动生成模型品质报告
-4. 使用testModel.py测试模型
+本项目用于训练一个能够识别18种不同情绪的文本分类模型。
 
-## 额外功能
-> 可以用addData.py人工审核添加情绪
+## 项目结构
+
+```
+New-Emotion-Trainer/
+├── data/                    # 数据目录
+│   └── emotion_data_manual.csv
+├── pre-process/             # 数据预处理
+│   └── csvCleaner.py
+├── train/                   # 训练模块
+│   ├── __init__.py
+│   ├── config.py           # 配置模块
+│   ├── data_loader.py      # 数据加载模块
+│   ├── dataset.py          # 数据集类
+│   └── trainer.py          # 训练模块
+├── inference/              # 推理模块
+│   ├── __init__.py
+│   ├── config.py           # 推理设置模块
+│   └── emotion_predictor.py# 推理类模块
+├── .env                    # 环境变量配置
+├── main.py                 # 主程序入口
+├── requirements.txt        # 依赖列表
+└── README.md              # 项目说明
+```
+
+## 安装依赖
+
+```bash
+pip install -r requirements.txt
+```
+
+## 配置
+
+项目使用.env文件进行配置，包含以下主要配置项：
+
+- 数据路径
+- 模型参数
+- 训练超参数
+- 输出路径
+- 情绪标签列表
+
+## 使用方法
+
+运行训练程序：
+
+```bash
+python main.py
+```
+
+## 情绪类别
+
+模型可以识别以下19种情绪：
+可以在env和data中的csv新增识别情绪
+
+1. 高兴
+2. 厌恶
+3. 害羞
+4. 害怕
+5. 生气
+6. 认真
+7. 紧张
+8. 慌张
+9. 疑惑
+10. 兴奋
+11. 无奈
+12. 担心
+13. 惊讶
+14. 哭泣
+15. 心动
+16. 难为情
+17. 自信
+18. 调皮
+19. 平静
