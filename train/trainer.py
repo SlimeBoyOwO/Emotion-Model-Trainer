@@ -126,4 +126,4 @@ def train_and_evaluate(train_texts, test_texts, train_labels, test_labels, label
     print(f"\n模型和配置已保存到 {Config.FINAL_MODEL_DIR}")
 
     from .onnx_exporter import convert_to_onnx
-    convert_to_onnx(Config.FINAL_MODEL_DIR, Config.FINAL_MODEL_DIR + "model.onnx", max_length=Config.MAX_LENGTH)
+    convert_to_onnx(Config.FINAL_MODEL_DIR, os.path.join(Config.FINAL_MODEL_DIR, "model.onnx"), max_length=Config.MAX_LENGTH)
