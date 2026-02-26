@@ -41,6 +41,7 @@ pip install -r requirements.txt
 - 训练超参数
 - 输出路径
 - 情绪标签列表
+- **NEFTune噪声强度** (NEFTUNE_NOISE_ALPHA): 设置为0.0表示禁用NEFTune
 
 ## 使用方法
 
@@ -74,3 +75,7 @@ python main.py
 17. 自信
 18. 调皮
 19. 平静
+
+## NEFTune支持
+
+本项目支持NEFTune技术，通过在嵌入层添加噪声来提高模型性能。要启用NEFTune，请在`.env`文件中设置`NEFTUNE_NOISE_ALPHA`为正值（如0.1）。注意：需要transformers>=4.33.0版本。

@@ -49,7 +49,7 @@ def convert_to_onnx(model_dir, output_path, max_length=128):
             input_names=input_names,
             output_names=output_names,
             dynamic_axes=dynamic_axes,
-            opset_version=17,  # 推荐使用较高的 opset 版本
+            opset_version=20,
             do_constant_folding=True
         )
         

@@ -1,9 +1,11 @@
-
 import os
 from dotenv import load_dotenv
 
 # 加载环境变量
 load_dotenv()
+
+# 设置TensorBoard日志目录环境变量
+os.environ["TENSORBOARD_LOGGING_DIR"] = os.getenv("LOGGING_DIR", "./logs_19emo")
 
 class Config:
     """训练配置类，从环境变量加载配置"""
@@ -20,8 +22,12 @@ class Config:
     PER_DEVICE_EVAL_BATCH_SIZE = int(os.getenv("PER_DEVICE_EVAL_BATCH_SIZE", 32))
     LEARNING_RATE = float(os.getenv("LEARNING_RATE", 2e-5))
     WEIGHT_DECAY = float(os.getenv("WEIGHT_DECAY", 0.01))
-    WARMUP_RATIO = float(os.getenv("WARMUP_RATIO", 0.1))
+    # WARMUP_RATIO = float(os.getenv("WARMUP_RATIO", 0.1))  # 已弃用
+    WARMUP_STEPS = int(os.getenv("WARMUP_STEPS", 500))  # 使用warmup_steps替代
     SEED = int(os.getenv("SEED", 42))
+
+    # NEFTune配置
+    NEFTUNE_NOISE_ALPHA = float(os.getenv("NEFTUNE_NOISE_ALPHA", 0.0))  # 0.0表示禁用NEFTune
 
     # 输出路径
     OUTPUT_DIR_BASE = os.getenv("OUTPUT_DIR_BASE", "./results_19emo")
