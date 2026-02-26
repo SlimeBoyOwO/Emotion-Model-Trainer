@@ -26,6 +26,9 @@ class Config:
     WARMUP_STEPS = int(os.getenv("WARMUP_STEPS", 500))  # 使用warmup_steps替代
     SEED = int(os.getenv("SEED", 42))
 
+    # NEFTune配置
+    NEFTUNE_NOISE_ALPHA = float(os.getenv("NEFTUNE_NOISE_ALPHA", 0.0))  # 0.0表示禁用NEFTune
+
     # 输出路径
     OUTPUT_DIR_BASE = os.getenv("OUTPUT_DIR_BASE", "./results_19emo")
     FINAL_MODEL_DIR = os.getenv("FINAL_MODEL_DIR", "./emotion_model_19emo")

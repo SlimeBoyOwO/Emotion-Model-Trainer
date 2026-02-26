@@ -43,23 +43,33 @@ def train_and_evaluate(train_texts, test_texts, train_labels, test_labels, label
     test_dataset = EmotionDataset(test_encodings, test_labels)
 
     # 4. 训练配置
-    training_args = TrainingArguments(
-        output_dir=Config.OUTPUT_DIR_BASE,
-        num_train_epochs=Config.NUM_TRAIN_EPOCHS,
-        per_device_train_batch_size=Config.PER_DEVICE_TRAIN_BATCH_SIZE,
-        per_device_eval_batch_size=Config.PER_DEVICE_EVAL_BATCH_SIZE,
-        learning_rate=Config.LEARNING_RATE,
-        weight_decay=Config.WEIGHT_DECAY,
-        warmup_steps=Config.WARMUP_STEPS,
-        eval_strategy="epoch",
-        save_strategy="epoch",
-        load_best_model_at_end=True,
-        metric_for_best_model="f1_weighted",
-        logging_steps=50,
-        seed=Config.SEED,
-        fp16=torch.cuda.is_available(),
-        report_to="none"
-    )
+    training_args_params = {
+        "output_dir": Config.OUTPUT_DIR_BASE,
+        "num_train_epochs": Config.NUM_TRAIN_EPOCHS,
+        "per_device_train_batch_size": Config.PER_DEVICE_TRAIN_BATCH_SIZE,
+        "per_device_eval_batch_size": Config.PER_DEVICE_EVAL_BATCH_SIZE,
+        "learning_rate": Config.LEARNING_RATE,
+        "weight_decay": Config.WEIGHT_DECAY,
+        "warmup_steps": Config.WARMUP_STEPS,
+        "eval_strategy": "epoch",
+        "save_strategy": "epoch",
+        "load_best_model_at_end": True,
+        "metric_for_best_model": "f1_weighted",
+        "logging_steps": 50,
+        "seed": Config.SEED,
+        "fp16": torch.cuda.is_available(),
+        "report_to": "none"
+    }
+    
+    if hasattr(TrainingArguments, 'neftune_noise_alpha'):
+        training_args_params["neftune_noise_alpha"] = Config.NEFTUNE_NOISE_ALPHA
+        if Config.NEFTUNE_NOISE_ALPHA > 0.0:
+            print(f"已启用NEFTune，噪声强度(alpha): {Config.NEFTUNE_NOISE_ALPHA}")
+    else:
+        if Config.NEFTUNE_NOISE_ALPHA > 0.0:
+            print("警告: 当前transformers版本不支持NEFTune，需要升级到>=4.33.0")
+    
+    training_args = TrainingArguments(**training_args_params)
 
     # 5. 自定义评估指标
     def compute_metrics(pred):
